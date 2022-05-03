@@ -5,7 +5,18 @@
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link href="myDEv.css" rel="stylesheet" type="text/css" />
-  <script src="uni.js?rr={rndJS}"></script>
+
+  <!-- Aby nepouzivat Scripty ze serveru Mafry a.s.  nahradil svymi  -->
+  <!-- <script src="uni.js?rr={rndJS}"></script> -->
+  <script type="text/javascript">
+    window.element = function(id){
+      if (typeof(id) === "string") return document.getElementById(id);
+      return id
+    }
+    Array.prototype.random = function(){return this[Math.floor(Math.random()*this.length)]}
+    Array.prototype.copy = function(){for(var i=0,b=[];i<this.length;i++)b[i]=(typeof(this[i].copy)!='undefined')?this[i].copy():this[i];return b}
+  </script>
+
 </head> 
 
 <body> 
@@ -36,6 +47,7 @@
                 <input type="button" id="devmobil" value="Mobile" onclick="Game.mobil.toggle()" >
                 <input type="button" id="devstop" value="Stop" onclick="if (speed){speed=0} else speed=10000 ">
                 <input type="button" id="devnewsms" value="New SMS" onclick="Game.mobil.newSMS()">
+                <input type="button" id="devGameOver" value="Konec Hry" onclick="konecHry()">
               </div>
     <!-- -------------------------------------------------------------------------------------------- -->
     <div id="icon-mobil" class="">✉</div>
@@ -112,6 +124,7 @@
 
 //=========================================================================
 // DOM - pomocky , doladit element
+// var element = document.getElementById
 
 var Dom = {
   set:  function(id, html)               { element(id).innerHTML = html;                        },
@@ -120,6 +133,8 @@ var Dom = {
   show: function(ele, type)              { element(ele).style.display = (type || 'block');      },
   blur: function(ev)                     { ev.target.blur();                                    },
 }
+
+
 
 //=========================================================================
 // Math-pomocky
@@ -772,7 +787,8 @@ var Render = {
           var fps           = 60;                      // how many 'update' frames per second
           var step          = 1/fps;                   // how long is each frame (in seconds)
           var segments      = [];                      // array of road segments
-          var canvas        = element('canvas');       // our canvas...
+          // var canvas        = element('canvas');       // our canvas...
+          var canvas        = document.getElementById('canvas');       // our canvas...
           var ctx           = canvas.getContext('2d');
           ctx.save();
           var width         = 1024;                    // logical canvas width

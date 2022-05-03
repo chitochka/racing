@@ -470,3 +470,14 @@ input[type="button"]:hover{
 
 #score-online div:hover {opacity: 1 !important; transition:0.2s; font-weight: bolder;}
 
+
+
+
+/*   Tlacitka  MOBIL,STOP, NEW SMS, KONEC HRY */
+
+#racer #devbuttons input#devGameOver:hover { 
+	color:  red;
+}
+#racer #devbuttons input:hover {
+	cursor: pointer;
+}
